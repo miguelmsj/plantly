@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { theme } from "@/theme";
 
-export default function NewScreen() {
+export default function NewPlant() {
   return (
     <View style={styles.container}>
       <Text>New plant</Text>

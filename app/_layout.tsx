@@ -16,7 +16,7 @@ export default function RootLayout() {
         }}
       />
       <Stack.Screen
-        name="newScreen"
+        name="newPlant"
         options={{
           presentation: "modal",
           title: "New plant",

@@ -26,7 +26,7 @@ export default function Layout() {
             <Entypo name="leaf" size={size} color={color} />
           ),
           headerRight: () => (
-            <Link href="/newScreen" asChild>
+            <Link href="/newPlant" asChild>
               <Pressable hitSlop={20} style={{ marginRight: 18 }}>
                 <AntDesign
                   name="pluscircleo"
