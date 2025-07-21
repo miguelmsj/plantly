@@ -49,7 +49,7 @@ export default function NewPlant() {
         value={name}
         onChangeText={setName}
         placeholder="E.g Casper the Cactus"
-        autoCapitalize="words"
+        autoCapitalize="sentences"
         style={styles.input}
       />
       <Text style={styles.label}>Watering frequency (every x days)</Text>
@@ -58,8 +58,6 @@ export default function NewPlant() {
         onChangeText={handleDaysChange}
         placeholder="E.g 6"
         keyboardType="number-pad"
-        inputMode="numeric"
-        autoCapitalize="none"
         style={styles.input}
       />
       <PlantlyButton title="Add plant" onPress={handleSubmit} />
