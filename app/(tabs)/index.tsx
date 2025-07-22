@@ -1,13 +1,28 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import { theme } from "@/theme";
+import { usePlantsStore } from "@/store/plantsStore";
+import { PlantCard } from "@/components/PlantCard";
+import { PlantlyButton } from "@/components/PlantlyButton";
+import { router } from "expo-router";
 
 export default function App() {
+  const plants = usePlantsStore(state => state.plants);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <FlatList
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+      data={plants}
+      renderItem={({ item }) => <PlantCard plant={item} />}
+      ListEmptyComponent={
+        <PlantlyButton
+          title="Add your first plant"
+          onPress={() => {
+            router.navigate("/new");
+          }}
+        />
+      }
+    />
   );
 }
 
@@ -15,7 +30,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.white,
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  contentContainer: {
+    padding: 12,
   },
 });

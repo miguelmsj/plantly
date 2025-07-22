@@ -4,10 +4,14 @@ import { theme } from "@/theme";
 import { PlantlyImage } from "@/components/PlantlyImage";
 import { PlantlyButton } from "@/components/PlantlyButton";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { usePlantsStore } from "@/store/plantsStore";
+import { useRouter } from "expo-router";
 
 export default function NewPlant() {
   const [name, setName] = useState<string>("");
   const [days, setDays] = useState<number | undefined>(undefined);
+  const addPlant = usePlantsStore(state => state.addPlant);
+  const router = useRouter();
 
   const handleSubmit = () => {
     if (!name) {
@@ -21,7 +25,8 @@ export default function NewPlant() {
       );
     }
 
-    console.log("Adding plant", name, days);
+    addPlant(name, days);
+    router.back();
   };
 
   const handleDaysChange = (text: string) => {
