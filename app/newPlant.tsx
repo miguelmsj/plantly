@@ -1,17 +1,26 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  TextInput,
+  Alert,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { theme } from "@/theme";
 import { PlantlyImage } from "@/components/PlantlyImage";
 import { PlantlyButton } from "@/components/PlantlyButton";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { usePlantsStore } from "@/store/plantsStore";
 import { useRouter } from "expo-router";
+import * as ImagePicker from "expo-image-picker";
 
 export default function NewPlant() {
+  const router = useRouter();
+  const addPlant = usePlantsStore(state => state.addPlant);
   const [name, setName] = useState<string>("");
   const [days, setDays] = useState<number | undefined>(undefined);
-  const addPlant = usePlantsStore(state => state.addPlant);
-  const router = useRouter();
+  const [imageUri, setImageUri] = useState<string>();
 
   const handleSubmit = () => {
     if (!name) {
@@ -25,7 +34,7 @@ export default function NewPlant() {
       );
     }
 
-    addPlant(name, days);
+    addPlant(name, days, imageUri);
     router.back();
   };
 
@@ -40,15 +49,36 @@ export default function NewPlant() {
     }
   };
 
+  const handleChooseImage = async () => {
+    if (Platform.OS === "web") {
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri);
+    }
+  };
+
   return (
     <KeyboardAwareScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       keyboardShouldPersistTaps="handled"
     >
-      <View style={styles.centered}>
+      <TouchableOpacity
+        style={styles.centered}
+        activeOpacity={0.8}
+        onPress={handleChooseImage}
+      >
         <PlantlyImage />
-      </View>
+      </TouchableOpacity>
       <Text style={styles.label}>Name</Text>
       <TextInput
         value={name}
@@ -94,5 +124,6 @@ const styles = StyleSheet.create({
   },
   centered: {
     alignItems: "center",
+    marginBottom: 24,
   },
 });

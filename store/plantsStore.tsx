@@ -1,18 +1,24 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as FileSystem from "expo-file-system";
 
 export type PlantType = {
   id: string;
   name: string;
   wateringFrequencyDays: number;
   lastWateredAtTimestamp?: number;
+  imageUri?: string;
 };
 
 type PlantsState = {
   nextId: number;
   plants: PlantType[];
-  addPlant: (name: string, wateringFrequencyDays: number) => void;
+  addPlant: (
+    name: string,
+    wateringFrequencyDays: number,
+    imageUri?: string,
+  ) => Promise<void>;
   removePlant: (plantId: string) => void;
   waterPlant: (plantId: string) => void;
 };
@@ -22,8 +28,25 @@ export const usePlantsStore = create(
     set => ({
       nextId: 1,
       plants: [],
-      addPlant: (name: string, wateringFrequencyDays: number) => {
-        return set(state => {
+      addPlant: async (
+        name: string,
+        wateringFrequencyDays: number,
+        imageUri?: string,
+      ) => {
+        const savedImageUri =
+          FileSystem.documentDirectory +
+          `${new Date().getTime()}-${imageUri?.split("/").slice(-1)[0]}`;
+
+        console.log("savedImageUri", savedImageUri);
+
+        if (imageUri) {
+          await FileSystem.copyAsync({
+            from: imageUri,
+            to: savedImageUri,
+          });
+        }
+
+        set(state => {
           return {
             ...state,
             nextId: state.nextId + 1,
@@ -32,6 +55,7 @@ export const usePlantsStore = create(
                 id: state.nextId.toString(),
                 name,
                 wateringFrequencyDays,
+                imageUri: imageUri ? savedImageUri : undefined,
               },
               ...state.plants,
             ],
@@ -39,13 +63,13 @@ export const usePlantsStore = create(
         });
       },
       removePlant: (plantId: string) => {
-        return set(state => {
+        set(state => {
           const newPlants = state.plants.filter(plant => plant.id !== plantId);
           return { ...state, plants: newPlants };
         });
       },
       waterPlant: (plantId: string) => {
-        return set(state => {
+        set(state => {
           const newPlants = state.plants.map(plant => {
             if (plant.id === plantId) {
               return { ...plant, lastWateredAtTimestamp: Date.now() };

@@ -18,7 +18,7 @@ export default function App() {
         <PlantlyButton
           title="Add your first plant"
           onPress={() => {
-            router.navigate("/new");
+            router.navigate("/newPlant");
           }}
         />
       }
