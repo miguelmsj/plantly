@@ -11,13 +11,13 @@ import { theme } from "@/theme";
 import { PlantlyImage } from "@/components/PlantlyImage";
 import { PlantlyButton } from "@/components/PlantlyButton";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { usePlantsStore } from "@/store/plantsStore";
+import { usePlantStore } from "@/store/plantsStore";
 import { useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 
 export default function NewPlant() {
   const router = useRouter();
-  const addPlant = usePlantsStore(state => state.addPlant);
+  const addPlant = usePlantStore(state => state.addPlant);
   const [name, setName] = useState<string>("");
   const [days, setDays] = useState<number | undefined>(undefined);
   const [imageUri, setImageUri] = useState<string>();

@@ -23,7 +23,7 @@ type PlantsState = {
   waterPlant: (plantId: string) => void;
 };
 
-export const usePlantsStore = create(
+export const usePlantStore = create(
   persist<PlantsState>(
     set => ({
       nextId: 1,
