@@ -35,7 +35,7 @@ export default function NewPlant() {
     }
 
     addPlant(name, days, imageUri);
-    router.back();
+    router.dismiss();
   };
 
   const handleDaysChange = (text: string) => {
