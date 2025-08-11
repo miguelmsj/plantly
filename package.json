@@ -7,7 +7,13 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "e2e:test": "maestro test maestro/flows/",
+    "e2e:onboarding": "maestro test maestro/flows/onboarding-flow.yaml",
+    "e2e:plants": "maestro test maestro/flows/plant-management-flow.yaml",
+    "e2e:journey": "maestro test maestro/flows/full-user-journey.yaml",
+    "e2e:record": "maestro record maestro/flows/",
+    "e2e:studio": "maestro studio"
   },
   "dependencies": {
     "@expo-google-fonts/caveat": "^0.4.1",

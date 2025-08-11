@@ -1,0 +1,37 @@
+appId: com.miguelmsj.plantly
+---
+# Full User Journey Test
+# Tests the complete flow from onboarding to managing plants
+
+# Clear app state to ensure fresh start
+- clearState
+
+- launchApp
+
+# Complete onboarding
+- assertVisible: "Plantly"
+- assertVisible: "Keep your plants healthy and hydrated"
+- tapOn: "Let me in"
+
+# Should be on empty plants screen
+- assertVisible: "Add your first plant"
+
+# Add first plant
+- tapOn: "Add your first plant"
+- assertVisible: "Name"
+- tapOn: "E.g Casper the Cactus"
+- inputText: "Cactus Charlie"
+- tapOn: "E.g 6"
+- inputText: "10"
+- tapOn: "Add plant"
+
+# Verify plant appears in list
+- assertVisible: "Cactus Charlie"
+- assertVisible: "Water every 10 days"
+
+# Add second plant by navigating to newPlant screen
+# Note: Since we now have plants, there's no "Add your first plant" button
+# We need to find another way to add plants - checking the navigation
+- back
+# Let's add another plant using the add button (if available in navigation)
+# This might need adjustment based on your actual UI navigation

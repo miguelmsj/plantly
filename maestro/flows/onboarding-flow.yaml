@@ -1,0 +1,15 @@
+appId: com.miguelmsj.plantly
+---
+# Onboarding Flow Test
+# Tests the user's first experience with the app
+
+- launchApp
+- assertVisible: "Plantly"
+- assertVisible: "Keep your plants healthy and hydrated"
+- assertVisible: "Let me in"
+
+# Tap the onboarding button
+- tapOn: "Let me in"
+
+# Should navigate to the main app screen
+- assertVisible: "Add your first plant"

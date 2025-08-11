@@ -1,0 +1,35 @@
+appId: com.miguelmsj.plantly
+---
+# Plant Management Flow Test
+# Tests adding a new plant and viewing it in the list
+
+- launchApp
+
+# Complete onboarding if it shows up
+- runFlow:
+    file: ../subflows/complete-onboarding.yaml
+
+# Should be on the main screen with "Add your first plant" button
+- assertVisible: "Add your first plant"
+
+# Tap to add a new plant
+- tapOn: "Add your first plant"
+
+# Should be on the new plant screen
+- assertVisible: "Name"
+- assertVisible: "Watering frequency (every x days)"
+
+# Fill in plant details
+- tapOn: "E.g Casper the Cactus"
+- inputText: "My Test Plant"
+
+# Fill in watering frequency
+- tapOn: "E.g 6"
+- inputText: "7"
+
+# Add the plant
+- tapOn: "Add plant"
+
+# Should return to main screen and see the plant
+- assertVisible: "My Test Plant"
+- assertVisible: "Water every 7 days"
