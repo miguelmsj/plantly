@@ -7,13 +7,17 @@ import { Link } from "expo-router";
 export function PlantCard({ plant }: { plant: PlantType }) {
   return (
     <Link href={`/plants/${plant.id}`} asChild>
-      <Pressable style={styles.plantCard}>
+      <Pressable style={styles.plantCard} testID={`plant-card-${plant.id}`}>
         <PlantlyImage size={100} imageUri={plant.imageUri} />
         <View style={styles.details}>
-          <Text numberOfLines={1} style={styles.plantName}>
+          <Text
+            numberOfLines={1}
+            style={styles.plantName}
+            testID={`plant-name-${plant.id}`}
+          >
             {plant.name}
           </Text>
-          <Text style={styles.subtitle}>
+          <Text style={styles.subtitle} testID={`plant-frequency-${plant.id}`}>
             Water every {plant.wateringFrequencyDays} days
           </Text>
         </View>

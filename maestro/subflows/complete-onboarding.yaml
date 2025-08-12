@@ -3,14 +3,10 @@ appId: com.miguelmsj.plantly
 # Reusable subflow for completing onboarding
 # This can be called from other flows to handle onboarding
 
-# Check if onboarding screen is visible
-- optional: true
-  assertVisible: "Plantly"
+# Try to find and tap the onboarding button if it exists
+- tapOn:
+    text: "Let me in"
+    optional: true
 
-# If onboarding is visible, complete it
-- optional: true
-  tapOn: "Let me in"
-
-# Wait a moment for navigation
-- optional: true
-  waitForAnimationToEnd
+# Wait a moment for navigation if onboarding was completed
+- waitForAnimationToEnd

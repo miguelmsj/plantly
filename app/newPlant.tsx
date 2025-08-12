@@ -22,7 +22,7 @@ export default function NewPlant() {
   const [days, setDays] = useState<number | undefined>(undefined);
   const [imageUri, setImageUri] = useState<string>();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name) {
       return Alert.alert("Validation error", "Give your plant a name");
     }
@@ -34,7 +34,7 @@ export default function NewPlant() {
       );
     }
 
-    addPlant(name, days, imageUri);
+    await addPlant(name, days, imageUri);
     router.dismiss();
   };
 

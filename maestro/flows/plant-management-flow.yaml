@@ -22,14 +22,26 @@ appId: com.miguelmsj.plantly
 # Fill in plant details
 - tapOn: "E.g Casper the Cactus"
 - inputText: "My Test Plant"
+- hideKeyboard
 
 # Fill in watering frequency
 - tapOn: "E.g 6"
 - inputText: "7"
+- tapOn: "Name" # Tap outside the input to close keyboard
 
 # Add the plant
 - tapOn: "Add plant"
 
+# Try to find the plant by text first (fallback approach)
+- scrollUntilVisible:
+    element: "My Test Plant"
+    direction: DOWN
+    timeout: 10000
+
 # Should return to main screen and see the plant
 - assertVisible: "My Test Plant"
+
 - assertVisible: "Water every 7 days"
+
+# Check if we're back on the main screen (no "Add your first plant")
+- assertNotVisible: "Add your first plant"
