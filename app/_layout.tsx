@@ -14,7 +14,7 @@ export default function RootLayout() {
         title: "Add a plant",
         icon: Platform.OS === "ios" ? "symbol:leaf" : "leaf",
         id: "0",
-        params: { href: "/new" },
+        params: { href: "/newPlant" },
       },
     ]);
   }, []);
